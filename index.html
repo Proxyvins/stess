@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Stess Birthday Site</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Pacifico', cursive;
+      background: linear-gradient(to bottom right, black, #0f172a, #064e3b);
+      color: white;
+      text-align: center;
+      padding: 2rem;
+    }
+    .slideshow {
+      width: 100%;
+      height: 300px;
+      overflow: hidden;
+      border: 2px solid white;
+      border-radius: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 0 20px white;
+    }
+    .slideshow-images {
+      display: flex;
+      width: 500%;
+      animation: slide 20s linear infinite;
+    }
+    .slideshow-images img {
+      width: 100%;
+      height: 500px;
+      object-fit: cover;
+    }
+    @keyframes slide {
+      0% { transform: translateX(0); }
+      20% { transform: translateX(-100%); }
+      40% { transform: translateX(-200%); }
+      60% { transform: translateX(-300%); }
+      80% { transform: translateX(-400%); }
+      100% { transform: translateX(0); }
+    }
+    .form-section, .wish-card {
+      background-color: rgba(0, 0, 0, 0.6);
+      border: 2px solid white;
+      border-radius: 2rem;
+      box-shadow: 0 0 15px green;
+      padding: 1.5rem;
+      margin: 1rem auto;
+      max-width: 700px;
+      
+    }
+    .form-section input, .form-section textarea {
+      width: 80%;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      border-radius: 1rem;
+      border: 2px solid #3b82f6;
+      box-shadow: 0 0 10px #3b82f6;
+      font-family: Arial, sans-serif;
+      font-size: 1rem;
+    }
+    .form-section button {
+      background-color: #22c55e;
+      color: white;
+      border: none;
+      padding: 1rem 2rem;
+      border-radius: 1rem;
+      cursor: pointer;
+      box-shadow: 0 0 10px white;
+      font-size: 1rem;
+    }
+    .wish-card {
+      background: white;
+      color: black;
+      box-shadow: 0 0 10px #22c55e;
+      text-align: left;
+    }
+  </style>
+</head>
+<body>
+  <h1 style="font-size: 3rem; margin-bottom: 2rem;">🎉 Happy Birthday Stess 🎂</h1>
+
+  <div class="slideshow">
+    <div class="slideshow-images">
+      <img src="3d-birthday-celebration-cartoon-illustration (1).jpg" />
+      <img src="3d-birthday-celebration-cartoon-illustration (2).jpg" />
+      <img src="3d-birthday-celebration-cartoon-illustration (3).jpg" />
+      <img src="3d-birthday-celebration-cartoon-illustration.jpg" />
+      <img src="3d-birthday-celebration-cartoon-illustration (2).jpg" />
+    </div>
+  </div>
+
+  <div class="form-section">
+    <h2 style="font-size: 2rem; margin-bottom: 1rem;">Send a Birthday Wish ✍️</h2>
+    <input type="text" id="name" placeholder="Your Name" />
+    <textarea id="message" placeholder="Write your wish..."></textarea>
+    <input type="text" id="relation" placeholder="Who are you to Stess? (e.g., Best Friend)" />
+    <input type="text" id="likes" placeholder="What do you like about Stess?" />
+    <button onclick="submitWish()">Submit Wish</button>
+    <p id="confirmation" style="color: #86efac; font-weight: bold; display: none;">🎈 Wish submitted successfully!</p>
+  </div>
+
+  <div id="wish-container"></div>
+
+  <script>
+    const wishes = [
+      { name: "Alex", text: "Happy birthday, queen!", relation: "Best Friend", likes: "Her smile" },
+      { name: "Lila", text: "Wishing you endless joy!", relation: "Cousin", likes: "Her kindness" },
+      { name: "Sam", text: "You’re the star today!", relation: "Classmate", likes: "Her energy" }
+    ];
+
+    function submitWish() {
+      const name = document.getElementById("name").value;
+      const message = document.getElementById("message").value;
+      const relation = document.getElementById("relation").value;
+      const likes = document.getElementById("likes").value;
+      if (name && message && relation && likes) {
+        wishes.push({ name, text: message, relation, likes });
+        document.getElementById("confirmation").style.display = "block";
+        document.getElementById("name").value = "";
+        document.getElementById("message").value = "";
+        document.getElementById("relation").value = "";
+        document.getElementById("likes").value = "";
+        renderWishes();
+      }
+    }
+
+    function renderWishes() {
+      const container = document.getElementById("wish-container");
+      container.innerHTML = "<h3 style='font-size: 1.5rem;'>🎁 Wishes for Stess</h3>";
+      wishes.forEach(wish => {
+        container.innerHTML += `
+          <div class="wish-card">
+            <div style="padding: 1rem;">
+              <h4 style="font-weight: bold; font-size: 1.2rem;">${wish.name}</h4>
+              <p style="font-style: italic; color: gray;">${wish.relation}</p>
+              <p>${wish.text}</p>
+              <p style="color: #1d4ed8;">💖 Likes about Stess: ${wish.likes}</p>
+            </div>
+          </div>
+        `;
+      });
+    }
+
+    renderWishes();
+  </script>
+ <script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-analytics.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+  
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    const firebaseConfig = {
+      apiKey: "AIzaSyDxJ6Dgo3BeexEkNaCXfcYZOMmurWAlwm8",
+      authDomain: "stess-33499.firebaseapp.com",
+      projectId: "stess-33499",
+      storageBucket: "stess-33499.firebasestorage.app",
+      messagingSenderId: "737689263917",
+      appId: "1:737689263917:web:351db22bcc96fcfff93da4",
+      measurementId: "G-YY5P99G8VC"
+    };
+  
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+  </script>
+</body>
+</html>
